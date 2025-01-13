@@ -1,0 +1,176 @@
+/* Contenedor general de la tabla */
+.tabla-container {
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabla de datos */
+.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-datos th, .tabla-datos td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.tabla-datos th {
+  background-color: #007bff;
+  color: white;
+}
+
+.tipo-columna {
+  cursor: pointer;
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.tipo-columna:hover {
+  background-color: #e0e0e0;
+}
+
+.detalle-fila td {
+  background-color: #f9f9f9;
+  text-align: left;
+  padding-left: 30px;
+}
+
+/* Contenedor del buscador y botón de agregar */
+.contenedor-buscador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espacio entre el botón y el buscador */
+  margin-bottom: 20px;
+}
+
+/* Buscador */
+.buscador-tipo {
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.buscador-tipo:focus {
+  border-color: #007bff;
+}
+
+/* Botón de agregar */
+.boton-agregar {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.boton-agregar:hover {
+  background-color: #218838;
+}
+
+/* Botón de volver en la esquina superior izquierda */
+.boton-volver {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.boton-volver:hover {
+  background-color: #0056b3;
+}
+
+.boton-volver svg {
+  margin-right: 0;
+}
+
+/* Modal de agregar datos */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.modal input:focus {
+  border-color: #007bff;
+}
+
+/* Botones del modal */
+.modal-buttons button {
+  padding: 10px 15px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Total de registros */
+.total-registros {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: right;
+  font-size: 16px;
+}
