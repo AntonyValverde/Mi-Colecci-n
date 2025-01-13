@@ -1,36 +1,38 @@
 // src/pages/GaleriaPage.jsx
 import React, { useState } from 'react';
-import Buscador from '../components/Buscador';
 import Carrusel from '../components/Carrusel';
 import Galeria from '../components/Galeria';
 import ImagenExpandida from '../components/ImagenExpandida';
-import '../styles/App.css';
+import { AiOutlineTable } from 'react-icons/ai';
+import '../styles/GaleriaPage.css';
 
-// Función para importar todas las imágenes automáticamente
+// Importar imágenes automáticamente
 const importarImagenes = (requireContext) => {
   return requireContext.keys().map(requireContext);
 };
 
 const GaleriaPage = () => {
   const todasLasImagenes = importarImagenes(require.context('../assets', false, /\.(png|jpe?g|svg)$/));
-  const [filtro, setFiltro] = useState('');
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
-
-  // Filtrar imágenes según el texto ingresado en el buscador
-  const imagenesFiltradas = todasLasImagenes.filter((img) =>
-    img.toLowerCase().includes(filtro.toLowerCase())
-  );
 
   return (
     <div className="galeria-page">
-      {/* Buscador con botón de información */}
-      <Buscador filtro={filtro} setFiltro={setFiltro} />
+      {/* Botón para ir a la tabla de datos */}
+      <a href="/info" className="boton-tabla">
+        <AiOutlineTable size={24} /> Ver Tabla de Datos
+      </a>
 
-      {/* Carrusel atractivo con desplazamiento automático */}
-      <Carrusel imagenes={imagenesFiltradas} />
+      {/* Carrusel destacado */}
+      <section className="carrusel-section">
+        <h2>✨ Nuestras Mejores Colecciones ✨</h2>
+        <Carrusel imagenes={todasLasImagenes} />
+      </section>
 
-      {/* Galería de imágenes en filas y columnas */}
-      <Galeria imagenes={imagenesFiltradas} abrirImagen={setImagenSeleccionada} />
+      {/* Galería en cuadrícula */}
+      <section className="galeria-section">
+        <h2>🖼️ Galería Completa 🖼️</h2>
+        <Galeria imagenes={todasLasImagenes} abrirImagen={setImagenSeleccionada} />
+      </section>
 
       {/* Imagen expandida a pantalla completa */}
       {imagenSeleccionada && (

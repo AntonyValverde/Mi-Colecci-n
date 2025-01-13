@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { AiOutlinePlusCircle, AiOutlineArrowLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +52,35 @@ const TablaDatos = () => {
     }));
   };
 
-  // Agregar nuevo dato a Firebase
+  // Validar contraseña antes de mostrar el modal
+  const validarAdministrador = async () => {
+    const contrasenaInput = prompt("🔒 Solo el administrador puede agregar.\nPor favor, ingresa la contraseña:");
+
+    if (contrasenaInput === null) return;  // Si cancela, no hace nada
+
+    try {
+      const querySnapshot = await getDocs(collection(db, "Usuario"));
+
+      if (!querySnapshot.empty) {
+        const docSnap = querySnapshot.docs[0].data();  // Tomar el primer documento
+        const contrasenaFirebase = docSnap.Contrasena;
+
+        if (contrasenaInput === contrasenaFirebase) {
+          setMostrarModal(true);
+        } else {
+          alert("❌ Contraseña incorrecta. No tienes permisos para agregar.");
+        }
+      } else {
+        alert("⚠️ No se encontró ningún documento en la colección Usuario.");
+      }
+    } catch (error) {
+      console.error("Error al verificar la contraseña:", error);
+      alert("⚠️ Error al verificar la contraseña.");
+    }
+  };
+
+
+  // Agregar nuevo registro a Firebase
   const agregarDato = async () => {
     if (nuevoTipo && nuevoNombre && nuevoNumero) {
       try {
@@ -60,7 +88,7 @@ const TablaDatos = () => {
           tipo: nuevoTipo,
           nombre: nuevoNombre,
           numero: nuevoNumero,
-          umd: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}` // Generar UMD único
+          umd: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
         });
         obtenerDatos();
         setMostrarModal(false);
@@ -71,7 +99,7 @@ const TablaDatos = () => {
         console.error("Error al agregar el documento: ", error);
       }
     } else {
-      alert("Por favor completa todos los campos.");
+      alert("⚠️ Completa todos los campos.");
     }
   };
 
@@ -99,7 +127,7 @@ const TablaDatos = () => {
           className="buscador-tipo"
         />
 
-        <button className="boton-agregar" onClick={() => setMostrarModal(true)}>
+        <button className="boton-agregar" onClick={validarAdministrador}>
           <AiOutlinePlusCircle size={24} />
         </button>
       </div>
